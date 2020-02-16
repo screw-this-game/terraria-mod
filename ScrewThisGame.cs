@@ -35,8 +35,6 @@ namespace ScrewThisGame
             RegisterServer();
         }
 
-        
-
         public async Task RegisterServer()
         {
             List<string> keys = new List<string>(dCommands.Keys);
@@ -89,14 +87,17 @@ namespace ScrewThisGame
             Logger.Info(responseString);
             Message m = JsonConvert.DeserializeObject<Message>(responseString);
 
+            if (m.effects.Count == 0) return;
             foreach (var command in m.effects)
             {
+                Logger.Info(command);
+                Logger.Info(dCommands[command].iID);
                 Player player = Main.player[Main.myPlayer];
 
                 if (!dCommands.ContainsKey(command)) continue;
                 Logger.Info(command);
                 if (String.Equals(dCommands[command].sType, "buff")) player.AddBuff(dCommands[command].iID, r.Next(3000, 10000));
-                else if (String.Equals(dCommands[command].sType, "mob")) NPC.NewNPC((int)player.Bottom.X + player.direction * 100, (int)player.Bottom.Y, -14);
+                else if (String.Equals(dCommands[command].sType, "mob")) NPC.NewNPC((int)player.Bottom.X + player.direction * 100, (int)player.Bottom.Y, dCommands[command].iID);
                 else if (Equals(dCommands[command].sType, "tele")) player.TeleportationPotion();
                 else if (Equals(dCommands[command].sType, "drop")) player.DropSelectedItem();
                 else if (Equals(dCommands[command].sType, "grapple")) player.QuickGrapple();
@@ -119,7 +120,7 @@ namespace ScrewThisGame
         public class Message
         {
             public string status { get; set; }
-            public IList<string> effects { get; set; }
+            public List<string> effects { get; set; }
         }
         public class Registration
         {
