@@ -1,0 +1,3 @@
+displayName = ScrewThisGame
+author = ScrewThisGame
+version = 0.1
