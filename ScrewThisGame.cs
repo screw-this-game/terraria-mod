@@ -125,6 +125,7 @@ namespace ScrewThisGame
         {
             public string status { get; set; }
             public string clientId { get; set; }
+            public IList<string> capabilities { get; set; }
         }
         public class Command
         {
