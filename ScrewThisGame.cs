@@ -103,6 +103,7 @@ namespace ScrewThisGame
                 else if (Equals(dCommands[command].sType, "heal")) player.QuickHeal();
                 else if (Equals(dCommands[command].sType, "buffall")) player.QuickBuff();
                 else if (Equals(dCommands[command].sType, "recall")) player.Teleport(new Vector2(player.SpawnX, player.SpawnY));
+                Main.NewText("The effect " + command + " has been triggered!", 225, 0, 0);
 
                 //Projectiles don't work ok
                 //ScrewThisGameProjectile proj = new ScrewThisGameProjectile(ProjectileID.Stinger);
